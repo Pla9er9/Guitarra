@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User</title>
+</head>
+<body>
+    <script>
+        let hf = window.location.href
+        let id = hf.slice(hf.lastIndexOf("/") + 1, hf.length)
+
+        document.write("User name: <br>")
+        document.write(id)
+    </script>
+</body>
+</html>
