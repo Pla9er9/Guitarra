@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"testing"
+	"time"
 )
 
 const url = "http://127.0.0.1:3000"
@@ -51,10 +52,17 @@ func TestDynamicRoute(t *testing.T) {
     }
 }
 
+var tries = 0;
+
 func testRequest(endpoint string) error {
     req, err := http.Get(endpoint)
     if (err != nil) {
-        return err
+        if (tries == 8) {
+            return err
+        }
+        tries += 1
+        time.Sleep(500 * time.Millisecond)
+        return testRequest(endpoint)
     }
     if (req.StatusCode != 200) {
         return fmt.Errorf("Endpoint `%v` returned wrong status code \nExpected: 200\n Got: %v", endpoint, req.StatusCode)
