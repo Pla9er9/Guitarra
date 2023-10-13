@@ -7,7 +7,7 @@ import (
 )
 
 const url = "http://127.0.0.1:3000"
-const folder = ".\\example"
+const folder = "example"
 var core = newCore(folder, 3000)
 
 func TestSearchFolder(t *testing.T) {
