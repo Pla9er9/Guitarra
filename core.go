@@ -6,10 +6,21 @@ import (
 	"os"
 	"strings"
 	"time"
+	"runtime"
 
 	"github.com/fatih/color"
 	"github.com/gofiber/fiber/v2"
 )
+
+var separator = "\\"
+
+func setSeparator() {
+	var os = strings.ToLower(runtime.GOOS)
+	switch os {
+		case "darwin", "linux":
+			separator = "/"
+		}
+}
 
 type Core struct {
 	server         		*fiber.App
@@ -20,7 +31,8 @@ type Core struct {
 }
 
 func newCore(folder string, port int) *Core {
-	s, _ := strings.CutSuffix(folder, "\\")
+	setSeparator()
+	s, _ := strings.CutSuffix(folder, separator)
 
 	return &Core{
 		server: fiber.New(fiber.Config{
@@ -84,7 +96,7 @@ func (c *Core) searchFolder(path string, endpoint string) {
 				route = string(runes)
 			}
 			c.searchFolder(
-				path + "\\" + fileName,
+				path + separator + fileName,
 				endpoint + "/" + route,
 			)
 
