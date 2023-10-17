@@ -7,6 +7,7 @@
 
 
 Static files router written in Go with Fiber 🔷
+
 <img src="screenshot.png" style="margin-top: 15px">
 
 ## Installation executable
