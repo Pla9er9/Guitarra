@@ -62,7 +62,7 @@ func (c *Core) reload() {
 
 func (c *Core) startServer() {
 	if (!c.disableStartMessage) {
-		color.HiMagenta("\nListening on adres -> 127.0.0.1:" + fmt.Sprint(c.port))
+		color.HiMagenta("\nListening on address -> 127.0.0.1:" + fmt.Sprint(c.port))
 		color.Red(serverOnlineText)
 		color.HiMagenta(guitarArt)
 		color.HiMagenta("- Press `r` to reload")

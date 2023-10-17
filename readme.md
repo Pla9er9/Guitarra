@@ -7,7 +7,7 @@ Static files router written in Go with Fiber 🔷
 Just download latest realease
 
 ## How to Use
-Run downloaded program like below, it will host your files from `foldername` on adres -  `127.0.0.1:3000`.
+Run downloaded program like below, it will host your files from `foldername` on address -  `127.0.0.1:3000`.
 ```bash
 $ ./router.exe -f foldername
 ```
