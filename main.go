@@ -17,8 +17,8 @@ func main() {
 	folder := flag.String("f", "", "Set hosting folder.")
 	port := flag.Int("port", 3000, "Set port for server.")
 	flag.Parse()
-	
-	if (*folder == "") {
+
+	if *folder == "" {
 		log.Fatal("You must add flag -f with folder path.\n `-f foldername`")
 	}
 

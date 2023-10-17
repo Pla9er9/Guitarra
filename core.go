@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"runtime"
 	"strings"
 	"time"
-	"runtime"
 
 	"github.com/fatih/color"
 	"github.com/gofiber/fiber/v2"
@@ -17,17 +17,17 @@ var separator = "\\"
 func setSeparator() {
 	var os = strings.ToLower(runtime.GOOS)
 	switch os {
-		case "darwin", "linux":
-			separator = "/"
-		}
+	case "darwin", "linux":
+		separator = "/"
+	}
 }
 
 type Core struct {
-	server         		*fiber.App
-	mainFolderPath 		string
-	port 		   		int
+	server              *fiber.App
+	mainFolderPath      string
+	port                int
 	disableStartMessage bool
-	logs 				bool
+	logs                bool
 }
 
 func newCore(folder string, port int) *Core {
@@ -38,8 +38,8 @@ func newCore(folder string, port int) *Core {
 		server: fiber.New(fiber.Config{
 			DisableStartupMessage: true},
 		),
-		mainFolderPath: s,
-		port: port,
+		mainFolderPath:      s,
+		port:                port,
 		disableStartMessage: false,
 	}
 }
@@ -56,12 +56,12 @@ func (c *Core) reload() {
 		DisableStartupMessage: true},
 	)
 	c.searchFolder(c.mainFolderPath, "")
-	
+
 	go c.server.Listen(":" + fmt.Sprint(c.port))
 }
 
 func (c *Core) startServer() {
-	if (!c.disableStartMessage) {
+	if !c.disableStartMessage {
 		color.HiMagenta("\nListening on address -> 127.0.0.1:" + fmt.Sprint(c.port))
 		color.Red(serverOnlineText)
 		color.HiMagenta(guitarArt)
@@ -88,16 +88,16 @@ func (c *Core) searchFolder(path string, endpoint string) {
 		if file.IsDir() {
 			route := fileName
 			if fileName[0] == '[' &&
-				fileName[nameLen - 1] == ']' &&
+				fileName[nameLen-1] == ']' &&
 				nameLen > 2 {
 
-				runes := []rune(fileName[:nameLen - 1])
+				runes := []rune(fileName[:nameLen-1])
 				runes[0] = ':'
 				route = string(runes)
 			}
 			c.searchFolder(
-				path + separator + fileName,
-				endpoint + "/" + route,
+				path+separator+fileName,
+				endpoint+"/"+route,
 			)
 
 		} else if fileName[0] == '+' && nameLen > 1 {
@@ -109,23 +109,23 @@ func (c *Core) searchFolder(path string, endpoint string) {
 				addition = "/" + addition
 			}
 			var fullEndpoint = endpoint + addition
-			if (fullEndpoint == "") {
+			if fullEndpoint == "" {
 				fullEndpoint = "/"
 			}
 			var logBegin = "- " + fullEndpoint + " - "
 			var filePath = path + "/" + name
-			
+
 			c.server.Get(
 				fullEndpoint,
 				func(ctx *fiber.Ctx) error {
 					_, err := os.Stat(filePath)
 					if err != nil {
-						if (c.logs) {
+						if c.logs {
 							fmt.Println(logBegin + "[ 404 ] NOT_FOUND")
 						}
 						return ctx.SendStatus(404)
 					}
-					if (c.logs) {
+					if c.logs {
 						fmt.Println(logBegin + "[ 200 ] OK")
 					}
 					return ctx.SendFile(filePath, false)
