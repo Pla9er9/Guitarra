@@ -1,6 +1,12 @@
 # 🎸 Guitarra
-Static files router written in Go with Fiber 🔷
 
+![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Pla9er9/Guitarra?color=%233700ad&label=version)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/Pla9er9/Guitarra/.github/workflows%2Fgo.yml?color=%230085ad)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Pla9er9/Guitarra)](https://goreportcard.com/report/github.com/Pla9er9/Guitarra)
+![GitHub](https://img.shields.io/github/license/Pla9er9/Guitarra)
+
+
+Static files router written in Go with Fiber 🔷
 <img src="screenshot.png" style="margin-top: 15px">
 
 ## Installation executable
